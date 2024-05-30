@@ -1,0 +1,9 @@
+@EndUserText.label: 'SERVICE DEFINITION FOR TRAVEL APPROVER'
+define service ZARCH_SD_TRAVEL_APPROVER {
+  expose zarch_i_m_travel_approver  as TRAVEL;
+  expose zarch_i_m_booking_approver as BOOKING;
+  expose zarch_i_m_bk_sup_approver  as BOOKSUPPLEMENT;
+  expose zarch_u_agency             as AGENCY;
+  expose zarch_u_customer           as CUSTOMER;
+  expose I_Currency                 as CURRENCY;
+}

@@ -1,0 +1,31 @@
+unmanaged implementation in class zbp_arch_i_u_travel unique;
+strict ( 2 );
+
+define behavior for zarch_i_u_travel alias travel
+//late numbering
+lock master
+authorization master ( instance )
+etag master lastchangedat   //timestamp field in database to store changes at time ,because of mltiple user will ahow popup first
+{
+  create;
+  update;
+  delete;
+//  field ( readonly ) TravelId;
+action set_book_status result[1] $self;
+mapping for /dmo/travel control /dmo/s_travel_intx  //  mapping filed to database and structuree is used for update purpose
+//for custom development will create strcutre having boolean field to store true and false vaLUE
+//CONTROL = WHAT WAS CHANGED IS TELL TO RAP AND FIELD TO (MTLB KONSI FIELD CHANGE HUI)
+{
+TravelId = travel_id;
+BeginDate = begin_date;
+BookingFee = booking_fee;
+CurrencyCode = currency_code;
+CustomerId = customer_id;
+EndDate = end_date;
+Lastchangedat = lastchangedat;
+Description = description;
+Status = status;
+TotalPrice = total_price;
+}
+
+}

@@ -1,0 +1,45 @@
+@Metadata.layer: #CUSTOMER
+annotate entity zarch_i_m_booking_approver
+    with 
+{
+@UI.facet: [{ 
+     id: 'bookingdata',
+     purpose: #STANDARD,
+     type: #IDENTIFICATION_REFERENCE,
+     label: 'booking data',
+     position: 10 },
+     { 
+     id: 'BOOKINGSUPP',
+     purpose: #STANDARD,
+     type: #LINEITEM_REFERENCE,
+     position: 20,
+     label: 'BOOKING SUPPLEMENT',
+     targetElement: '_booksup'}]  --TARGETING TO BOOKING SUPPLEMENT FOR LINE ITEMS TO SHOW LINE ITEM
+     
+     @UI.lineItem: [{ position: 10 }]
+     @UI.identification: [{ position: 10 }]
+    TravelId;
+         @UI.lineItem: [{ position: 20 }]
+     @UI.identification: [{ position: 20 }]
+    BookingId;
+         @UI.lineItem: [{ position: 30 }]
+     @UI.identification: [{ position: 30 }]
+    BookingDate;
+         @UI.lineItem: [{ position: 40 }]
+     @UI.identification: [{ position: 40 }]
+    CustomerId;
+         @UI.lineItem: [{ position: 50 }]
+     @UI.identification: [{ position: 50 }]
+    CarrierId;
+         @UI.lineItem: [{ position: 60 }]
+     @UI.identification: [{ position: 60 }]
+    ConnectionId;
+         @UI.lineItem: [{ position: 70 }]
+     @UI.identification: [{ position: 70 }]
+    FlightDate;
+         @UI.lineItem: [{ position: 80 }]
+     @UI.identification: [{ position: 80 }]
+    FlightPrice;
+
+    
+}

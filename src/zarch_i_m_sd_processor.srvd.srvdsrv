@@ -1,0 +1,10 @@
+@EndUserText.label: 'service def for processor scenario managed'
+define service Zarch_i_m_sd_processor {
+  expose zarch_i_m_processor      as travel;
+  expose zarch_i_m_bookingprocess as bookings;
+  expose /DMO/I_Flight            as flight;
+  expose /DMO/I_Carrier           as carrier;
+  expose zarch_u_agency           as agency;
+  expose zarch_u_customer         as customer;
+  expose /DMO/I_Connection        as connection;
+}

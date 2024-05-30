@@ -1,0 +1,9 @@
+@EndUserText.label: 'service definition for unmanaged travel'
+define service Zarch_sd_u_travel {
+  expose zarch_i_u_travel        as travel;
+  expose zarch_u_agency          as agency;
+  expose zarch_u_customer        as customer;
+  expose I_Currency              as currency;
+  expose I_Country               as country;
+  expose /DMO/I_Travel_Status_VH as travelstatus;
+}

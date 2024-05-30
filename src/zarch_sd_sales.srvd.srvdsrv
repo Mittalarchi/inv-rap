@@ -1,0 +1,6 @@
+@EndUserText.label: 'service definition sales'
+define service Zarch_sd_sales {
+  expose zey_pr_co_sales      as salesdetaildata;
+  expose zey_pr_i_product     as products;
+  expose zey_pr_co_salesorder as salesorder;
+}

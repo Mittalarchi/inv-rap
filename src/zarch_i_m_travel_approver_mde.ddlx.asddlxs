@@ -1,0 +1,76 @@
+@Metadata.layer: #CUSTOMER
+annotate entity zarch_i_m_travel_approver
+    with 
+{
+@UI.facet: [{ 
+         id: 'travel',
+         purpose: #STANDARD,
+         type: #IDENTIFICATION_REFERENCE,position: 10
+         , label: 'travel info' },
+         { 
+         id: 'booking',
+                  purpose: #STANDARD,
+         type: #LINEITEM_REFERENCE,position: 20
+         , label: 'booking info',
+         targetElement: '_BOOKING'
+         }]
+         
+         @UI: { selectionField: [{ position: 10 }],
+         identification: [{ position: 10 }],
+         lineItem: [{ position: 10 }] }
+    TravelId;
+        @UI: { selectionField: [{ position: 20 }],
+         identification: [{ position: 20 }],
+         lineItem: [{ position: 20 }] }
+    AgencyId;
+        @UI: { selectionField: [{ position: 30 }],
+         identification: [{ position: 30 }],
+         lineItem: [{ position: 30 }] }
+    CustomerId;
+
+        @UI: { 
+         identification: [{ position: 40 }],
+         lineItem: [{ position: 40 }] }
+    BeginDate;
+                @UI: { 
+         identification: [{ position: 42 }]
+          }
+    EndDate;
+        @UI: {  
+         identification: [{ position: 50 }],
+         lineItem: [{ position: 50 }] }
+    BookingFee;
+        @UI: { 
+         identification: [{ position: 60 }],
+         lineItem: [{ position: 60 }] }
+    TotalPrice;
+            @UI: { 
+         identification: [{ position: 62 }]
+         }
+    CurrencyCode;
+                @UI: { 
+         identification: [{ position: 65 }]
+         }
+    Description;
+        @UI: { selectionField: [{ position: 40 }],
+         identification: [{ position: 70 },
+         { type: #FOR_ACTION, dataAction: 'accepttravel', label: 'accept travel' },
+                   { type: #FOR_ACTION, dataAction: 'rejecttravel', label: 'Reject travel' } ],  --in order to show this buuton on next screen we are adding it here
+                   
+                   
+                  
+         lineItem: [{ position: 70 , importance: #HIGH },{ 
+                     type: #FOR_ACTION, dataAction: 'accepttravel', label: 'accept travel' },
+                   { type: #FOR_ACTION, dataAction: 'rejecttravel', label: 'Reject travel' } ] }
+    Status;
+            @UI: { 
+         identification: [{ position: 80 }]
+          }
+    Createdby;
+            @UI: { 
+         identification: [{ position: 80 }]
+          }
+    Createdat;
+
+    
+}

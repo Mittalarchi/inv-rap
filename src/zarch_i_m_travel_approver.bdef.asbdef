@@ -1,0 +1,32 @@
+projection;
+strict ( 2 );
+//use draft;
+
+//WE WILL ALLOWED ONLY SOME ACTIONS FOR THIS BEHAVIOUR AS A APPROVER
+define behavior for zarch_i_m_travel_approver alias TRAVEL
+{
+field(readonly) TravelId, CustomerId,BeginDate, EndDate, TotalPrice;
+//  use create;
+  use update;
+//  use delete;
+
+//  use action createtravelbytemp;
+  use action accepttravel;
+  use action rejecttravel;
+
+//  use action Edit;
+//  use action Activate;
+//  use action Discard;
+//  use action Resume;
+//  use action Prepare;
+
+//  use association _BOOKING { create; with draft; }
+}
+
+//define behavior for zarch_i_m_booking_approver //alias <alias_name>
+//{
+//  use update;
+//  use delete;
+//
+//  use association _TRAVEL { with draft; }
+//}

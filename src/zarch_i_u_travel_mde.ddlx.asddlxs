@@ -1,0 +1,85 @@
+@Metadata.layer:  #CORE
+@UI.headerInfo :{
+typeName: 'TRAVEL',
+typeNamePlural: 'TRAVEL',
+description: {
+    value: 'TotalPrice'
+},
+title :{ value: 'Description' }
+
+}
+annotate entity zarch_i_u_travel with
+{
+@UI.facet: [{
+//    qualifier: '',
+//    feature: '',
+    id: 'travel',
+    purpose: #STANDARD,
+    parentId: 'Generalinfo',
+    position: 10 ,
+//    exclude: true,
+//    hidden: true,
+//    isPartOfPreview: true,
+//    isSummary: true,
+//    isMap: true,
+//    importance: ,
+    label: 'Travel Detail',
+    type: #IDENTIFICATION_REFERENCE
+//    targetElement: '',
+//    targetQualifier: '',
+//    url: ''
+},{ id : 'Generalinfo',    --collection facet for better ui and this will become parent id 
+   label: 'Geneal Information',
+   type: #COLLECTION,
+   position: 10 },
+{ purpose: #HEADER, type: #DATAPOINT_REFERENCE, position: 10, targetQualifier: 'STATUSDATA' }, --FOR OBJECT PAGE FACET SHOWING ON TOP COLOR FOR STATUS
+{ purpose: #STANDARD,label: 'Pricing Detail',parentId: 'Generalinfo',position: 20,targetQualifier: 'pricing' ,
+type: #FIELDGROUP_REFERENCE},  --field  group for showing field under by assining anno at fields
+
+{ purpose: #STANDARD,label: 'Dates info',parentId: 'Generalinfo',position: 30,targetQualifier: 'Dates', type: #FIELDGROUP_REFERENCE }] ---for dates collection 
+  @UI.selectionField: [{ position: 1 }]
+  @UI.lineItem: [{ position: 1 }]
+  @UI.identification: [{ position: 10 }]
+  TravelId;
+  @UI.selectionField: [{ position: 20 }]
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'zarch_u_agency' , element: 'AgencyId'} }]
+  AgencyId;
+  @UI.selectionField: [{ position: 30 }]
+  @UI.lineItem: [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  CustomerId;
+  @UI.lineItem: [{ position: 40 }]
+//  @UI.identification: [{ position: 40}]
+   @UI.fieldGroup: [{ qualifier: 'Dates' , position: 20}]
+  BeginDate;
+  @UI.lineItem: [{ position: 50 }]
+//   @UI.identification: [{ position: 50}] --- INSTEAD OF THIS DOING FIELD GROUPING
+ @UI.fieldGroup: [{ qualifier: 'Dates' , position: 1}]
+  EndDate;
+  @UI.lineItem: [{ position: 60 }]
+//   @UI.identification: [{ position: 60}]
+  BookingFee;
+  @UI.lineItem: [{ position: 70 }]
+  @UI.fieldGroup: [{ qualifier: 'pricing' , position: 10}]
+  TotalPrice;
+  //    CurrencyCode;
+  //    Description;
+  @UI.textArrangement: #TEXT_ONLY   //FOR SHOWING TEXT ONLY
+   @UI.lineItem: [{ position: 80 ,
+   criticality: 'CRITICALITY', criticalityRepresentation: #WITH_ICON,   --FOR SHOWING ICON WITH COLOR AND VIRTUAL FIELD BINDING
+    importance: #HIGH } , { type: #FOR_ACTION ,dataAction: 'set_book_status' , label: 'book maddi' }]
+    @UI.dataPoint : { qualifier: 'STATUSDATA', title: 'STATUS', criticality: 'CRITICALITY' }  ---FOR DATA POINT FACET ON TOP ( LINKING ANNO )
+      Status;
+  //    Createdby;
+  //    Createdat;
+  //    Lastchangedby;
+  //    Lastchangedat;
+  //    /* Associations */
+  //    _agency;
+  //    _currency;
+  //    _customer;
+  //    _travel;
+
+}

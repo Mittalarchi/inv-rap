@@ -1,0 +1,5 @@
+CLASS zarch_trc_ag_proc DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zarch_i_m_processor.
+ENDCLASS.
+
+CLASS zarch_trc_ag_proc IMPLEMENTATION.
+ENDCLASS.

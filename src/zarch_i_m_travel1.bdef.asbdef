@@ -1,0 +1,130 @@
+ managed ;    //implementation in class zbp_arch_i_m_travel1 unique;(1 bd can have many bi)
+strict ( 2 );  //commenting for book suppli
+with draft;  //step1
+
+define behavior for zarch_i_m_travel1 alias TRAVEL
+implementation in class zbp_arch_i_m_travel1 unique
+draft table zarch_dra_travel
+persistent table /dmo/travel   //the table where framework is going to write data we need to tell
+lock master
+total etag Lastchangedat    //step3: etag for draft
+authorization master ( global )
+etag master Lastchangedat   //--FOR HAVING LAST CHANGED POPUP BEFORE CHANGING
+early numbering     //for early numbering and need to implement and write code ther
+{
+  create;
+  update;
+    delete;
+  field ( readonly ) TravelId;
+  association _BOOKING { create; with draft; }
+//   field ( features : instance ) TravelId;
+
+field ( readonly ) Lastchangedat, Lastchangedby, Createdat, Createdby;  //static field control
+field ( mandatory ) AgencyId, CustomerId, BeginDate, EndDate;
+  action createtravelbytemp result[1] $self;
+
+  action( features : instance ) accepttravel result [1] $self;  //"--FOR DYNAMCI FIELD CONTROL OF ACTION
+   action( features : instance ) rejecttravel result [1] $self;
+
+//   "VALIDATIONS BEFORE SAVE (ON SAVE) DURING CREATE
+validation VALIDATECUSTOMER on save { field CustomerId; create; }
+validation VALIDATEDATES on save { field BeginDate, EndDate; create; }
+validation VALIDATESTATUS on save { field Status; }
+
+draft action Edit;    //step4: draft actions added
+draft action Activate;
+draft action Discard;
+draft action Resume;
+draft determine action Prepare{
+validation VALIDATECUSTOMER;
+validation VALIDATEDATES;
+validation VALIDATESTATUS;
+}
+
+  mapping for /dmo/travel{
+  TravelId = travel_id;
+BeginDate = begin_date;
+BookingFee = booking_fee;
+CurrencyCode = currency_code;
+AgencyId = agency_id;
+CustomerId = customer_id;
+EndDate = end_date;
+Lastchangedat = lastchangedat;
+Description = description;
+Status = status;
+TotalPrice = total_price;
+CREATEDBY = CREATEDBY;
+Lastchangedby = lastchangedby;
+Createdat = createdat;
+
+//Lastchangedat = lastchangedat;<
+  }
+
+}
+
+define behavior for zarch_i_m_booking1 alias booking
+implementation in class zbp_arch_i_m_booking unique
+draft table zarch_d_book   //step5 :  tabel added
+persistent table /dmo/booking
+lock dependent by _TRAVEL
+authorization dependent by _TRAVEL
+//etag master lastchangedat
+early numbering   //numbering for booking table
+{
+  update;
+  delete;
+  field ( readonly ) TravelId;    //--we can't create bcz travelid is primary key of parent node(it is readonly) so only updat and delete be perform
+  association _TRAVEL { with draft;}
+  association _booksup { create; with draft; }
+
+  field ( mandatory ) CarrierId, ConnectionId, BookingDate;
+  field ( features : instance ) BookingId, BookingDate, CustomerId;
+
+//"FOR CALUCATION PURPOSE DETERMINATION IS USED  (CUREENCYCODE - FOR CURRENCY CONVERSION)
+  determination CALCULATETOTALFLIGHTPRICE on modify { field FlightPrice,  CurrencyCode;create;}
+  mapping for /dmo/booking{
+  TravelId = travel_id;
+  CustomerId = customer_id;
+ CurrencyCode = currency_code;
+ BookingDate = booking_date;
+ CarrierId = carrier_id;
+ BookingId = booking_id;
+ FlightDate = flight_date;
+ FlightPrice = flight_price;
+ ConnectionId = connection_id;
+
+  }
+}
+
+
+//--BEHAVIOUR DEFINITION FOR BOOKING SUPPLEMEMNT by implementing this i comment many things above to work
+
+define behavior for zarch_i_m_book_Supp alias bookingSUPP
+implementation in class zbp_arch_i_m_book_SUPP unique
+draft table zarch_d_book_SUP   //step5 :  tabel added
+persistent table /dmo/book_suppl
+lock dependent by _TRAVEL
+authorization dependent by _TRAVEL
+//etag master lastchangedat
+early numbering   //numbering for booking table
+{
+  update;
+  delete;
+  field ( readonly ) TravelId;    //--we can't create bcz travelid is primary key of parent node(it is readonly) so only updat and delete be perform
+  association _booksup { with draft;}
+  association _travel { with draft;}
+
+
+  field ( readonly ) BookingId,BookingSupplementId,Price,SupplementId;
+
+  mapping for /dmo/book_suppl{
+  TravelId = travel_id;
+  BookingId = booking_id;
+  BookingSupplementId = booking_supplement_id;
+  CurrencyCode = currency_code;
+  Price = price;
+  SupplementId = supplement_id;
+
+
+  }
+}

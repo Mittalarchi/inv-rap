@@ -1,0 +1,28 @@
+projection;
+strict ( 2 );  //
+use draft;  //step6
+
+define behavior for zarch_i_m_processor //alias <alias_name>
+implementation in class zarch_trc_ag_proc unique
+{
+  use create( augment );
+  use update;
+  use delete;
+use action createtravelbytemp ;
+
+  use association _BOOKING { create; with draft; }
+
+  use action Edit;    //step7: added action
+use action Activate;
+use action Discard;
+use action Resume;
+use action Prepare;
+}
+
+define behavior for zarch_i_m_bookingprocess //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _TRAVEL { with draft; }
+}
